@@ -39,6 +39,8 @@ def wakeUp():
             audio=r.listen(source)
             try:
                 voice_data=r.recognize_google(audio)
+		# if the wake-word is present the voice command
+		# then it wishes you and listens to other commands
                 if 'FRIDAY' in voice_data.upper():      
                     print('Hi')  
                     wishMe()
@@ -106,6 +108,7 @@ def respond(voice_data):
         webbrowser.get().open(url) 
 
     if 'Joke' in voice_data:
+	# there are 3 categories -neutral -twister -all
         speak(pyjokes.get_joke()) 
         time.sleep(5)
         
