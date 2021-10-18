@@ -76,6 +76,7 @@ def usrname(change):
 	#calls you by the default username that was previously stored in the file
         speak("Welcome Mister{}".format(myname))
         print('Welcome Mr/Mrs. {}'.format(myname))
+	time.sleep(2)
     else:
 	change=True	
   	if change:
