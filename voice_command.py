@@ -1,5 +1,4 @@
 from gtts import gTTS
-from playsound import playsound
 from time import ctime
 import speech_recognition as sr
 import os
@@ -70,24 +69,29 @@ def voice_analyzer(ask = False):
         return voice_data
         
 def usrname(change):
-    if os.path.isfile('username.txt') and os.path.getsize('username.txt') != 0:
+    if os.path.isfile('username.txt') and os.path.getsize('username.txt') != 0 and change == False:
 	#checks if the file exists and if it is empty or not
         file = open('username.txt')
         myname = file.read()
 	#calls you by the default username that was previously stored in the file
         speak("Welcome Mister{}".format(myname))
         print('Welcome Mr/Mrs. {}'.format(myname))
-    if change:
-	#if the file was empty or if a request was made to change the name
-        speak("What should I call you sir?")
-        time.sleep(1.5)
-        myname = voice_analyzer()
-        file = open('username.txt','w')
-        file.write(myname)
-	#saves the username to the file
-        speak("Welcome Mister{}".format(myname))
-        print('Welcome Mr/Mrs. {}'.format(myname))
-        time.sleep(2)
+    else:
+	change=True	
+  	if change:
+	#if the file was empty or didn't exist or if a request was made to change the name
+	    	speak("What should I call you sir?")
+		time.sleep(1.5)
+		myname = voice_analyzer()
+		while myname == '':
+		   myname = voice_analyzer()
+		   time.sleep(3)
+		file = open('username.txt','w')
+		file.write(myname)
+		#saves the username to the file
+		speak("Welcome Mister{}".format(myname))
+		print('Welcome Mr/Mrs. {}'.format(myname))
+		time.sleep(2)
 
 def respond(voice_data):
     if 'What Time' in voice_data:
